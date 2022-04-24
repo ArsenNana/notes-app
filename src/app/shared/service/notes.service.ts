@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Note } from '../model/note.model';
 
 @Injectable({
@@ -7,11 +9,14 @@ import { Note } from '../model/note.model';
 export class NotesService {
 
   notes: Note[] = new Array<Note>();
-  constructor() { }
+  constructor(private http: HttpClient) {
+    //this.notes = this.getNotes();
+  }
 
   getAll(): Note[] {
     return this.notes;
   }
+
   get(id: number): Note {
     return this.notes[id];
   }
@@ -23,6 +28,9 @@ export class NotesService {
   add(note: Note): number {
     let newLength = this.notes.push(note);
     let index = newLength - 1;
+    this.http.post<any>(environment.note_app_io_endpoint + 'saveNote', note).subscribe(data => {
+      console.log(data);
+    })
     return index;
   }
 
@@ -36,5 +44,14 @@ export class NotesService {
     this.notes.splice(id, 1);
   }
 
+  getNotes(): Note[] {
+    this.http.get<any>(environment.note_app_io_endpoint + 'getNotes').subscribe(
+      notes => {
+        this.notes = notes;
+        console.log(this.notes);
+      }
+    );
+    return this.notes;
+  }
 
 }

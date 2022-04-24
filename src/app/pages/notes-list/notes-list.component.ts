@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Note } from 'src/app/shared/model/note.model';
 import { NotesService } from 'src/app/shared/service/notes.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-notes-list',
@@ -13,11 +15,31 @@ export class NotesListComponent implements OnInit {
   filteredNotes: Note[] = new Array<Note>();
   @ViewChild('filterInput') filterInputElRef!: ElementRef<HTMLInputElement>;
 
-  constructor(private notesService: NotesService) { }
+  constructor(
+    private notesService: NotesService,
+    private http: HttpClient
+
+  ) { }
 
   ngOnInit(): void {
-    this.notes = this.notesService.getAll();
-    this.filteredNotes = this.notesService.getAll();
+    // this.notes = this.notesService.getAll();
+    // this.filteredNotes = this.notesService.getAll();
+
+    this.http.get<any>(environment.note_app_io_endpoint + "getNotes")
+      .toPromise()
+      .then(
+        res => {
+          this.notes = res;
+          this.filteredNotes = res;
+          console.log(this.notes);
+        },
+        msg => {
+          // Error
+          // reject(msg);
+        }
+      );
+
+
   }
 
   deleteNote(note: Note): void {
