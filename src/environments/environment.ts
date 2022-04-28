@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  note_app_io_endpoint: 'http://localhost:8080/note-app-io/api/note/'
+  apiUrl: 'http://localhost:8080/note-app-io/api/note/'
 };
 
 /*

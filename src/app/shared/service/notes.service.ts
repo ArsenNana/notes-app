@@ -28,7 +28,7 @@ export class NotesService {
   add(note: Note): number {
     let newLength = this.notes.push(note);
     let index = newLength - 1;
-    this.http.post<any>(environment.note_app_io_endpoint + 'saveNote', note).subscribe(data => {
+    this.http.post<any>(environment.apiUrl + 'saveNote', note).subscribe(data => {
       console.log(data);
     })
     return index;
@@ -45,7 +45,7 @@ export class NotesService {
   }
 
   getNotes(): Note[] {
-    this.http.get<any>(environment.note_app_io_endpoint + 'getNotes').subscribe(
+    this.http.get<any>(environment.apiUrl + 'getNotes').subscribe(
       notes => {
         this.notes = notes;
         console.log(this.notes);

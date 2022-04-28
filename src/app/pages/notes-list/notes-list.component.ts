@@ -25,7 +25,7 @@ export class NotesListComponent implements OnInit {
     // this.notes = this.notesService.getAll();
     // this.filteredNotes = this.notesService.getAll();
 
-    this.http.get<any>(environment.note_app_io_endpoint + "getNotes")
+    this.http.get<any>(environment.apiUrl + "getNotes")
       .toPromise()
       .then(
         res => {
