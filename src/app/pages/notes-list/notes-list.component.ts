@@ -31,6 +31,7 @@ export class NotesListComponent implements OnInit {
         res => {
           this.notes = res;
           this.filteredNotes = res;
+          this.notesService.initNotes(res);
           console.log(this.notes);
         },
         msg => {
@@ -105,19 +106,26 @@ export class NotesListComponent implements OnInit {
 
     let noteCountObj: any = {};
     searchResults.forEach(note => {
+      let noteId = this.notesService.getId(note);
 
-      if (noteCountObj[note.id]) {
-        noteCountObj[note.id] += 1;
+      if (noteCountObj[noteId]) {
+        noteCountObj[noteId] += 1;
       } else {
-        noteCountObj[note.id] = 1;
+        noteCountObj[noteId] = 1;
       }
     });
-
     this.filteredNotes = this.filteredNotes.sort((a: Note, b: Note) => {
-      let aCount = noteCountObj[a.id];
-      let bCount = noteCountObj[b.id];
+      let aId = this.notesService.getId(a);
+      let bId = this.notesService.getId(b);
+
+      let aCount = noteCountObj[aId];
+      let bCount = noteCountObj[bId];
       return bCount - aCount;
     });
+  }
+
+  generateNoteURL(note: Note): number {
+    return this.notesService.getId(note);
   }
 
 }
