@@ -43,8 +43,8 @@ export class NotesListComponent implements OnInit {
   }
 
   deleteNote(note: Note): void {
-    let noteId = this.notesService.getId(note);
-    this.notesService.delete(noteId);
+
+    this.notesService.delete(note.id);
     this.filter(this.filterInputElRef.nativeElement.value);
   }
 
@@ -105,26 +105,19 @@ export class NotesListComponent implements OnInit {
 
     let noteCountObj: any = {};
     searchResults.forEach(note => {
-      let noteId = this.notesService.getId(note);
 
-      if (noteCountObj[noteId]) {
-        noteCountObj[noteId] += 1;
+      if (noteCountObj[note.id]) {
+        noteCountObj[note.id] += 1;
       } else {
-        noteCountObj[noteId] = 1;
+        noteCountObj[note.id] = 1;
       }
     });
-    this.filteredNotes = this.filteredNotes.sort((a: Note, b: Note) => {
-      let aId = this.notesService.getId(a);
-      let bId = this.notesService.getId(b);
 
-      let aCount = noteCountObj[aId];
-      let bCount = noteCountObj[bId];
+    this.filteredNotes = this.filteredNotes.sort((a: Note, b: Note) => {
+      let aCount = noteCountObj[a.id];
+      let bCount = noteCountObj[b.id];
       return bCount - aCount;
     });
-  }
-
-  generateNoteURL(note: Note): number {
-    return this.notesService.getId(note);
   }
 
 }
