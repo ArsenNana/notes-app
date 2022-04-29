@@ -23,7 +23,7 @@ export class NotesListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.notes = this.notesService.getAll();
-    // this.filteredNotes = this.notesService.getAll();
+    this.filteredNotes = this.notesService.getAll();
 
     this.http.get<any>(environment.apiUrl + "getNotes")
       .toPromise()
