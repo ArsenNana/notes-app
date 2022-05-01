@@ -12,7 +12,7 @@ import { NotesService } from 'src/app/shared/service/notes.service';
 export class NoteDetailsComponent implements OnInit {
 
   note!: Note;
-  noteId!: number;
+  noteIndex!: number;
   new!: boolean;
 
   constructor(
@@ -24,10 +24,9 @@ export class NoteDetailsComponent implements OnInit {
   ngOnInit(): void {
     // find out if  a new Note is about to be created or editing an existing one
     this.route.params.subscribe((params: Params) => {
-      this.note = new Note();
       if (params['id']) {
         this.note = this.notesService.get(params['id']);
-        this.noteId = params['id'];
+        this.noteIndex = params['id'];
         this.new = false;
       } else {
         this.new = true;
@@ -39,7 +38,7 @@ export class NoteDetailsComponent implements OnInit {
     if (this.new) {
       this.notesService.add(form.value);
     } else {
-      this.notesService.update(this.noteId, form.value.title, form.value.body);
+      this.notesService.update(this.noteIndex, form.value.title, form.value.body);
     }
 
     this.router.navigateByUrl('/');

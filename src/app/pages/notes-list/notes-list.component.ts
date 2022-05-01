@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
 })
 export class NotesListComponent implements OnInit {
 
-  //notes: Note[] = new Array<Note>();
   filteredNotes: Note[] = new Array<Note>();
   @ViewChild('filterInput') filterInputElRef!: ElementRef<HTMLInputElement>;
 
@@ -22,7 +21,7 @@ export class NotesListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.notes = this.notesService.getAll();
+
     this.notesService.notesObservable.subscribe({
       next: (value: any) => {
         this.notesService.initNotes(value);
@@ -34,8 +33,9 @@ export class NotesListComponent implements OnInit {
     });
   }
 
-  deleteNote(note: Note): void {
-    this.notesService.delete(note.id);
+  deleteNote(NoteIndex: number): void {
+    this.notesService.delete(NoteIndex);
+    this.filteredNotes = this.notesService.getAll();
     this.filter(this.filterInputElRef.nativeElement.value);
   }
 

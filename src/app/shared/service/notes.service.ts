@@ -54,12 +54,13 @@ export class NotesService {
     return index;
   }
 
-  update(id: number, title: string, body: string): void {
-    this.notes[id].title = title;
-    this.notes[id].body = body;
-    this.http.put(environment.apiUrl + 'updateNote', this.notes[id]).subscribe({
+  update(noteIndex: number, title: string, body: string): void {
+    const note = new Note(this.notes[noteIndex].id, title, body);
+    this.http.put(environment.apiUrl + 'updateNote', note).subscribe({
       next: (value: any) => {
         console.log(`note updated => ${value}`);
+        this.notes[noteIndex].title = value.title;
+        this.notes[noteIndex].body = value.body;
       },
       error: (msg: any) => {
         throw new Error(msg);
@@ -67,9 +68,10 @@ export class NotesService {
     });
   }
 
-  delete(id: number): void {
-    this.notes.splice(id, 1);
-    this.http.delete(environment.apiUrl + `deleteNote/id/${id}`).subscribe({
+  delete(noteIndex: number): void {
+    const note = this.notes[noteIndex];
+    this.notes.splice(noteIndex, 1);
+    this.http.delete(environment.apiUrl + `deleteNote/id/${note.id}`).subscribe({
       next: (value: any) => {
         console.log(`note deleted => ${value}`);
       },
