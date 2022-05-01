@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class NotesListComponent implements OnInit {
 
-  notes: Note[] = new Array<Note>();
+  //notes: Note[] = new Array<Note>();
   filteredNotes: Note[] = new Array<Note>();
   @ViewChild('filterInput') filterInputElRef!: ElementRef<HTMLInputElement>;
 
@@ -23,28 +23,18 @@ export class NotesListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.notes = this.notesService.getAll();
-    this.filteredNotes = this.notesService.getAll();
-
-    this.http.get<any>(environment.apiUrl + "getNotes")
-      .toPromise()
-      .then(
-        res => {
-          this.notes = res;
-          this.filteredNotes = res;
-          this.notesService.initNotes(res);
-          console.log(this.notes);
-        },
-        msg => {
-          // Error
-          // reject(msg);
-        }
-      );
-
-
+    this.notesService.notesObservable.subscribe({
+      next: (value: any) => {
+        this.notesService.initNotes(value);
+        this.filteredNotes = value
+      },
+      error: (err: any) => {
+        throw new Error(err);
+      }
+    });
   }
 
   deleteNote(note: Note): void {
-
     this.notesService.delete(note.id);
     this.filter(this.filterInputElRef.nativeElement.value);
   }
@@ -85,7 +75,7 @@ export class NotesListComponent implements OnInit {
 
   relevantNotes(query: string): Note[] {
     query = query.toLowerCase().trim();
-    let relevantNotes = this.notes.filter(note => {
+    let relevantNotes = this.notesService.getAll().filter(note => {
       if (note.title && note.title.toLowerCase().includes(query)) {
         return true;
       }

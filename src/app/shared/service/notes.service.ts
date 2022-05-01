@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Note } from '../model/note.model';
 
@@ -9,12 +10,26 @@ import { Note } from '../model/note.model';
 export class NotesService {
 
   notes: Note[] = new Array<Note>();
+  private notesSubject = new BehaviorSubject<any>(0);
+  public notesObservable: Observable<Note[]> = this.notesSubject.asObservable();
   constructor(private http: HttpClient) {
-    //this.notes = this.getNotes();
+    this.getAllNotes();
   }
 
   getAll(): Note[] {
     return this.notes;
+  }
+
+  getAllNotes(): void {
+    this.http.get(environment.apiUrl + "getNotes").subscribe({
+      next: (value: any) => {
+        this.notes = value;
+        this.notesSubject.next(this.notes);
+      },
+      error: (msg: any) => {
+        throw new Error(msg);
+      }
+    });
   }
 
   get(id: number): Note {
@@ -26,32 +41,42 @@ export class NotesService {
   }
 
   add(note: Note): number {
+    this.http.post<any>(environment.apiUrl + 'saveNote', note).subscribe({
+      next: (value: any) => {
+        console.log(`note saved => ${value}`);
+      },
+      error: (msg: any) => {
+        throw new Error(msg);
+      }
+    });
     let newLength = this.notes.push(note);
     let index = newLength - 1;
-    this.http.post<any>(environment.apiUrl + 'saveNote', note).subscribe(data => {
-      console.log(data);
-    })
     return index;
   }
 
   update(id: number, title: string, body: string): void {
-    let note = this.notes[id];
-    note.title = title;
-    note.body = body;
+    this.notes[id].title = title;
+    this.notes[id].body = body;
+    this.http.put(environment.apiUrl + 'updateNote', this.notes[id]).subscribe({
+      next: (value: any) => {
+        console.log(`note updated => ${value}`);
+      },
+      error: (msg: any) => {
+        throw new Error(msg);
+      }
+    });
   }
 
   delete(id: number): void {
     this.notes.splice(id, 1);
-  }
-
-  getNotes(): Note[] {
-    this.http.get<any>(environment.apiUrl + 'getNotes').subscribe(
-      notes => {
-        this.notes = notes;
-        console.log(this.notes);
+    this.http.delete(environment.apiUrl + `deleteNote/id/${id}`).subscribe({
+      next: (value: any) => {
+        console.log(`note deleted => ${value}`);
+      },
+      error: (msg: any) => {
+        throw new Error(msg);
       }
-    );
-    return this.notes;
+    });
   }
 
   initNotes(notes: Note[]): void {
