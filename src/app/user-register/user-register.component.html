@@ -1,0 +1,39 @@
+<div class="main-container">
+    <div class="header">
+        <h1>Register</h1>
+    </div>
+    <form #UserRegisterForm="ngForm">
+        <div class="form-group">
+            <label class="label" for="firstName"> First Name</label>
+            <input type="text" name="firstName" required class="input">
+        </div>
+        <div class="form-group">
+            <label class="label" for="lastName"> Last Name</label>
+            <input type="text" name="lastName" required class="input">
+        </div>
+        <div class="form-group">
+            <label class="label" for="UserName"> User Name</label>
+            <input type="text" name="UserName" required class="input">
+        </div>
+
+        <div class="form-group">
+            <label class="label" for="password"> Password</label>
+            <div class="control">
+                <input type="text" name="password" required class="input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="label" for="password"> Repeat Password</label>
+            <div class="control">
+                <input type="text" name="password" required class="input">
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="button is-primary">
+                Register
+            </button>
+            <button routerLink="../login" class="button is-link is-light">Cancel</button>
+        </div>
+
+    </form>
+</div>
