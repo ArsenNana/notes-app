@@ -2,34 +2,42 @@
     <div class="header">
         <h1>Register</h1>
     </div>
-    <form #UserRegisterForm="ngForm">
+    <form #UserRegisterForm="ngForm" (ngSubmit)="onSubmit(UserRegisterForm)">
         <div class="form-group">
             <label class="label" for="firstName"> First Name</label>
-            <input type="text" name="firstName" required class="input">
+            <div class="control">
+                <input type="text" name="firstName" [ngModel]="user.firstName" required class="input">
+            </div>
         </div>
         <div class="form-group">
             <label class="label" for="lastName"> Last Name</label>
-            <input type="text" name="lastName" required class="input">
+            <div class="control">
+                <input type="text" name="lastName" [ngModel]="user.lanstName" required class="input">
+            </div>
         </div>
         <div class="form-group">
             <label class="label" for="UserName"> User Name</label>
-            <input type="text" name="UserName" required class="input">
+            <div class="control">
+                <input type="text" name="UserName" required class="input">
+            </div>
         </div>
 
         <div class="form-group">
             <label class="label" for="password"> Password</label>
             <div class="control">
-                <input type="text" name="password" required class="input">
+                <input type="text" name="password" [ngModel]="user.password" required class="" minlength="6"
+                    class="input">
             </div>
         </div>
         <div class="form-group">
-            <label class="label" for="password"> Repeat Password</label>
+            <label class="label" for="confirm_password"> Repeat Password</label>
             <div class="control">
-                <input type="text" name="password" required class="input">
+                <input type="text" name="confirm_password" [ngModel]="user.passwordConfirmed" required
+                    classclassminlength="6" class="input">
             </div>
         </div>
         <div class="form-group">
-            <button class="button is-primary">
+            <button class="button is-primary" type="submit">
                 Register
             </button>
             <button routerLink="../login" class="button is-link is-light">Cancel</button>
