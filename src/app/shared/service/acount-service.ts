@@ -12,7 +12,7 @@ export class AcountService {
     private http: HttpClient
   ) { }
 
-  public register(user: User){
-    return this.http.post(environment.apiUrl+'/...', user);
+  public register(user: User) {
+    return this.http.post(environment.apiUrl + '/api/note/saveUser', user);
   }
 }

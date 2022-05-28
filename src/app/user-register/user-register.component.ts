@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../shared/model';
 import { AcountService } from '../shared/service/acount-service';
@@ -15,41 +15,64 @@ export class UserRegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   user!: User;
+  form!: FormGroup;
   constructor(
     private aleartService: AlertService,
     private acountService: AcountService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.user = new User(0,'','','','');
+    this.form = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      confirmPassword: ['', Validators.required],
+
+    },
+      {
+        //validators: [Validation]
+      }
+    );
+    this.user = new User(0, '', '', '', '', '');
+
   }
 
-  public onSubmit(form: NgForm): void {
-  this.submitted = true;
-    let user = form.value;
+
+  // getter  to get form-controls from template and to easy access form fields
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
+  }
+  public onSubmit(): void {
+    this.submitted = true;
+    let user = this.form.value;
+    console.log(JSON.stringify(user, null, 2));
 
     //resets alerts 
     this.aleartService.clear();
 
     //stop if form is invalid
-    if (form.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
     this.loading = true;
 
     this.acountService.register(user).subscribe({
-      
-      next: (value: any) =>{
-         this.aleartService.success('Registration successful', { keepAfterRouteChange: true});
-         this.router.navigate(['../login']);
+
+      next: (value: any) => {
+        this.aleartService.success('Registration successful', { keepAfterRouteChange: true });
+        console.log(value);
+        this.router.navigate(['../login']);
       },
-      error: (msg: any) =>{
+      error: (msg: any) => {
         this.aleartService.error(msg);
         this.loading = false;
       }
-      
+
     });
 
   }

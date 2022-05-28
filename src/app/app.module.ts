@@ -11,6 +11,7 @@ import { NoteDetailsComponent } from './pages/note-details/note-details.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserRegisterComponent } from './user-register/user-register.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UserRegisterComponent } from './user-register/user-register.component';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
 
   ],
   providers: [HttpClientModule],
