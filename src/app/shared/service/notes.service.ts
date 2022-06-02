@@ -21,7 +21,7 @@ export class NotesService {
   }
 
   getAllNotes(): void {
-    this.http.get(environment.apiUrl + "getNotes").subscribe({
+    this.http.get(environment.apiUrl + "api/note/getNotes").subscribe({
       next: (value: any) => {
         this.notes = value;
         this.notesSubject.next(this.notes);
@@ -41,7 +41,7 @@ export class NotesService {
   }
 
   add(note: Note): number {
-    this.http.post<any>(environment.apiUrl + 'saveNote', note).subscribe({
+    this.http.post<any>(environment.apiUrl + 'api/note/saveNote', note).subscribe({
       next: (value: any) => {
         console.log(`note saved => ${value}`);
       },
@@ -56,7 +56,7 @@ export class NotesService {
 
   update(noteIndex: number, title: string, body: string): void {
     const note = new Note(this.notes[noteIndex].id, title, body);
-    this.http.put(environment.apiUrl + 'updateNote', note).subscribe({
+    this.http.put(environment.apiUrl + 'api/note/updateNote', note).subscribe({
       next: (value: any) => {
         console.log(`note updated => ${value}`);
         this.notes[noteIndex].title = value.title;
@@ -71,7 +71,7 @@ export class NotesService {
   delete(noteIndex: number): void {
     const note = this.notes[noteIndex];
     this.notes.splice(noteIndex, 1);
-    this.http.delete(environment.apiUrl + `deleteNote/id/${note.id}`).subscribe({
+    this.http.delete(environment.apiUrl + `api/note/deleteNote/id/${note.id}`).subscribe({
       next: (value: any) => {
         console.log(`note deleted => ${value}`);
       },

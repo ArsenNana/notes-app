@@ -13,10 +13,10 @@ export class AauthService {
   ) { }
 
   public register(user: User) {
-    return this.http.post(environment.apiUrl + 'signup', user);
+    return this.http.post(environment.apiUrl + 'api/auth/signup', user);
   }
 
   public login(username: string, password: string) {
-    //return this.http.post(environment.apiUrl + 'signin', user);
+    //return this.http.post(environment.apiUrl + 'api/auth/signin', user);
   }
 }
