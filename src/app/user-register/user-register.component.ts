@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../shared/model';
-import { AcountService } from '../shared/service/acount-service';
+import { AauthService } from '../shared/service/auth-service';
 import { AlertService } from '../shared/service/alert.service';
+import { Validation } from '../shared/utils/validation';
 
 @Component({
   selector: 'app-user-register',
@@ -18,15 +19,15 @@ export class UserRegisterComponent implements OnInit {
   form!: FormGroup;
   constructor(
     private aleartService: AlertService,
-    private acountService: AcountService,
+    private acountService: AauthService,
     private router: Router,
     private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
-      lastName: ['', Validators.required],
+      firstname: ['', [Validators.required, Validators.maxLength(40)]],
+      lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
@@ -34,7 +35,7 @@ export class UserRegisterComponent implements OnInit {
 
     },
       {
-        //validators: [Validation]
+        validators: [Validation.match('password', 'confirmPassword')]
       }
     );
     this.user = new User(0, '', '', '', '', '');

@@ -2,21 +2,18 @@ export class User {
     id!: number;
     username!: string;
     password!: string;
-    confirmPassword!: string;
-    firstName!: string;
-    lanstName!: string;
+    firstname!: string;
+    lanstname!: string;
     email!: string;
     token!: string;
 
-    constructor(id: number, username: string, password: string, firstName: string, lanstName: string, email: string) {
+    constructor(id: number, username: string, password: string, firstname: string, lanstname: string, email: string) {
         this.id = id;
         this.username = username;
-        this.firstName = firstName;
-        this.lanstName = lanstName;
+        this.firstname = firstname;
+        this.lanstname = lanstname;
         this.password = password;
         this.email = email;
 
     }
-
-    getFirstName(): string { return this.firstName; }
 }

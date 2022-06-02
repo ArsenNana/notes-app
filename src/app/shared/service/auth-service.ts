@@ -6,13 +6,17 @@ import { User } from '../model';
 @Injectable({
   providedIn: 'root'
 })
-export class AcountService {
+export class AauthService {
 
   constructor(
     private http: HttpClient
   ) { }
 
   public register(user: User) {
-    return this.http.post(environment.apiUrl + '/api/note/saveUser', user);
+    return this.http.post(environment.apiUrl + 'saveUser', user);
+  }
+
+  public login(username: string, password: string) {
+    //return this.http.post(environment.apiUrl + 'saveUser', user);
   }
 }
