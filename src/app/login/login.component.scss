@@ -51,3 +51,24 @@ input {
     margin-left: 25px;
     color: red;
 }
+
+.fa-eye-slash:hover,
+.fa-eye:hover {
+    cursor: pointer;
+}
+
+.input-group-append {
+    border-radius: 5 5 0 0 px;
+    background-color: rgba(0, 0, 0, .03);
+    margin-top: -45px;
+    z-index: 1000000000;
+    float: right;
+    position: relative;
+    margin-right: 24px;
+    display: flex;
+    cursor: pointer;
+}
+
+.input-group-text {
+    padding: 9px;
+}

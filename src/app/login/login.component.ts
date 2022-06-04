@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   isLoggedIn = false;
   isLogginFailed = false;
+  fieldTextType!: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
@@ -66,6 +67,10 @@ export class LoginComponent implements OnInit {
 
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
+  }
+
+  public toggleFieldTextType(): void {
+    this.fieldTextType = !this.fieldTextType;
   }
 
 }
