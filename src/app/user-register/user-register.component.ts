@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../shared/model';
-import { AauthService } from '../shared/service/auth-service';
+import { AuthService } from '../shared/service/auth-service';
 import { AlertService } from '../shared/service/alert.service';
 import { Validation } from '../shared/utils/validation';
 
@@ -19,7 +19,7 @@ export class UserRegisterComponent implements OnInit {
   form!: FormGroup;
   constructor(
     private aleartService: AlertService,
-    private acountService: AauthService,
+    private acountService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder
   ) { }
