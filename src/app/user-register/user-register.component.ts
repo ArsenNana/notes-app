@@ -17,6 +17,8 @@ export class UserRegisterComponent implements OnInit {
   submitted = false;
   user!: User;
   form!: FormGroup;
+  fieldTextType!: boolean;
+  fieldTextTypePWConfirm!: boolean;
   constructor(
     private aleartService: AlertService,
     private acountService: AuthService,
@@ -76,6 +78,13 @@ export class UserRegisterComponent implements OnInit {
 
     });
 
+  }
+
+  public toggleFieldTextType(): void {
+    this.fieldTextType = !this.fieldTextType;
+  }
+  public toggleFieldTextTypePwConfitm(): void {
+    this.fieldTextTypePWConfirm = !this.fieldTextTypePWConfirm;
   }
 
 }
