@@ -19,6 +19,8 @@ export class UserRegisterComponent implements OnInit {
   form!: FormGroup;
   fieldTextType!: boolean;
   fieldTextTypePWConfirm!: boolean;
+  isRegistrationFailed = false;
+  errorMessage!: string;
   constructor(
     private aleartService: AlertService,
     private acountService: AuthService,
@@ -72,6 +74,8 @@ export class UserRegisterComponent implements OnInit {
         this.router.navigate(['../login']);
       },
       error: (msg: any) => {
+        this.isRegistrationFailed = true;
+        this.errorMessage = "";
         this.aleartService.error(msg);
         this.loading = false;
       }

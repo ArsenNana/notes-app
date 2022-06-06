@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLogginFailed = false;
   fieldTextType!: boolean;
+  errorMessage!: String;
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
@@ -53,10 +54,13 @@ export class LoginComponent implements OnInit {
         this.tokenStorageServiceService.saveUser(signedInUserDto);
         this.isLoggedIn = true;
         this.isLogginFailed = false;
-        //this.router.navigate(['/home']);
-        window.alert('User logged in successfully!');
+        this.router.navigate(['/home']);
+        //window.alert('User logged in successfully!');
       },
       error: (msg: any) => {
+        this.isLogginFailed = true;
+        this.loading = false;
+        this.errorMessage = 'Username or password incorrect!';
         throw new Error(msg);
       }
     })
