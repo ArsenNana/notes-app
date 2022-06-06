@@ -3,7 +3,6 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { User } from '../shared/model';
 import { AuthService } from '../shared/service/auth-service';
-import { AlertService } from '../shared/service/alert.service';
 import { Validation } from '../shared/utils/validation';
 
 @Component({
@@ -22,7 +21,6 @@ export class UserRegisterComponent implements OnInit {
   isRegistrationFailed = false;
   errorMessage!: string;
   constructor(
-    private aleartService: AlertService,
     private acountService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder
@@ -56,9 +54,6 @@ export class UserRegisterComponent implements OnInit {
     let user = this.form.value;
     console.log(JSON.stringify(user, null, 2));
 
-    //resets alerts 
-    this.aleartService.clear();
-
     //stop if form is invalid
     if (this.form.invalid) {
       return;
@@ -69,15 +64,14 @@ export class UserRegisterComponent implements OnInit {
     this.acountService.register(user).subscribe({
 
       next: (value: any) => {
-        this.aleartService.success('Registration successful', { keepAfterRouteChange: true });
         console.log(value);
         this.router.navigate(['../login']);
       },
       error: (msg: any) => {
         this.isRegistrationFailed = true;
         this.errorMessage = "";
-        this.aleartService.error(msg);
         this.loading = false;
+        throw new Error(msg);
       }
 
     });
