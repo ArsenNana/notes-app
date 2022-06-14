@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -67,11 +68,11 @@ export class UserRegisterComponent implements OnInit {
         console.log(value);
         this.router.navigate(['../login']);
       },
-      error: (msg: any) => {
+      error: (msg: HttpErrorResponse) => {
         this.isRegistrationFailed = true;
-        this.errorMessage = "";
+        this.errorMessage = msg.error.message;
         this.loading = false;
-        throw new Error(msg);
+        //console.log(msg.error);
       }
 
     });
