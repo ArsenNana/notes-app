@@ -70,9 +70,9 @@ export class UserRegisterComponent implements OnInit {
       },
       error: (msg: HttpErrorResponse) => {
         this.isRegistrationFailed = true;
-        this.errorMessage = msg.error.message;
+        this.errorMessage = msg.error.message
         this.loading = false;
-        //console.log(msg.error);
+
       }
 
     });
