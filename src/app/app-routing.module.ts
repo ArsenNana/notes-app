@@ -5,12 +5,13 @@ import { LoginComponent } from './login/login.component';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
 import { NoteDetailsComponent } from './pages/note-details/note-details.component';
 import { NotesListComponent } from './pages/notes-list/notes-list.component';
+import { ResumeComponent } from './resume/resume.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
 
 const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
-      { path: '', component: LoginComponent },
+      { path: '', component: ResumeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: UserRegisterComponent },
       { path: 'home', component: HomeComponent },
