@@ -24,7 +24,7 @@ export class NotesListComponent implements OnInit {
 
     this.notesService.notesObservable.subscribe({
       next: (value: any) => {
-        this.notesService.initNotes(value);
+        // this.notesService.initNotes(value);
         this.filteredNotes = value
       },
       error: (err: any) => {

@@ -27,6 +27,7 @@ import { ResumeComponent } from './resume/resume.component';
     LoginComponent,
     HomeComponent,
     ResumeComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -35,7 +36,10 @@ import { ResumeComponent } from './resume/resume.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+
+
+
 
   ],
   providers: [HttpClientModule],

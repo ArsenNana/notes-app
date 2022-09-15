@@ -5,6 +5,7 @@ import { LoginDto } from '../shared/model/loginDto';
 import { SignedInUserDto } from '../shared/model/SignedInUserDto';
 import { AlertService } from '../shared/service/alert.service';
 import { AuthService } from '../shared/service/auth-service';
+import { NotesService } from '../shared/service/notes.service';
 import { TokenStorageServiceService } from '../shared/service/token-storage-service.service';
 
 @Component({
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService,
     private authService: AuthService,
     private tokenStorageServiceService: TokenStorageServiceService,
-    private router: Router
+    private router: Router,
+    private notesService: NotesService,
 
   ) { }
 
@@ -54,7 +56,10 @@ export class LoginComponent implements OnInit {
         this.tokenStorageServiceService.saveUser(signedInUserDto);
         this.isLoggedIn = true;
         this.isLogginFailed = false;
-        this.router.navigate(['/home']);
+        if (signedInUserDto.notes) {
+          this.notesService.initNotes(signedInUserDto.notes);
+        }
+        this.router.navigate(['/noteList']);
         //window.alert('User logged in successfully!');
       },
       error: (msg: any) => {

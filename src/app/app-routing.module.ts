@@ -5,19 +5,19 @@ import { LoginComponent } from './login/login.component';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
 import { NoteDetailsComponent } from './pages/note-details/note-details.component';
 import { NotesListComponent } from './pages/notes-list/notes-list.component';
-import { ResumeComponent } from './resume/resume.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
 
 const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
-      { path: '', component: ResumeComponent },
+      //{ path: '', component: ResumeComponent },
+      { path: '', component: LoginComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: UserRegisterComponent },
       { path: 'home', component: HomeComponent },
       { path: 'noteList', component: NotesListComponent },
-      { path: 'new', component: NoteDetailsComponent },
-      { path: ':id', component: NoteDetailsComponent }
+      { path: 'noteList/new', component: NoteDetailsComponent },
+      { path: 'noteList/:id', component: NoteDetailsComponent }
     ]
   }
 ];

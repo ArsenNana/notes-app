@@ -83,6 +83,7 @@ export class NotesService {
 
   initNotes(notes: Note[]): void {
     this.notes = notes;
+    this.notesSubject.next(this.notes);
   }
 
 }

@@ -41,11 +41,11 @@ export class NoteDetailsComponent implements OnInit {
       this.notesService.update(this.noteIndex, form.value.title, form.value.body);
     }
 
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/noteList');
   }
 
   cancel() {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/noteList');
   }
 
 }
