@@ -13,7 +13,7 @@ export class NotesService {
   private notesSubject = new BehaviorSubject<any>(0);
   public notesObservable: Observable<Note[]> = this.notesSubject.asObservable();
   constructor(private http: HttpClient) {
-    this.getAllNotes();
+    //this.getAllNotes();
   }
 
   getAll(): Note[] {
@@ -40,18 +40,20 @@ export class NotesService {
     return this.notes.indexOf(note);
   }
 
-  add(note: Note): number {
+  add(note: Note): void {
     this.http.post<any>(environment.apiUrl + 'api/note/saveNote', note).subscribe({
       next: (value: any) => {
         console.log(`note saved => ${value}`);
+        // this.notesSubject.value.push(value);
+        this.notes.push(note);
       },
       error: (msg: any) => {
         throw new Error(msg);
       }
     });
-    let newLength = this.notes.push(note);
-    let index = newLength - 1;
-    return index;
+    // let newLength = this.notes.push(note);
+    // let index = newLength - 1;
+    // return index;
   }
 
   update(noteIndex: number, title: string, body: string): void {
@@ -59,8 +61,10 @@ export class NotesService {
     this.http.put(environment.apiUrl + 'api/note/updateNote', note).subscribe({
       next: (value: any) => {
         console.log(`note updated => ${value}`);
-        this.notes[noteIndex].title = value.title;
-        this.notes[noteIndex].body = value.body;
+        // this.notes[noteIndex].title = value.title;
+        // this.notes[noteIndex].body = value.body;
+        this.notesSubject.value[noteIndex].title = value.title;
+        this.notesSubject.value[noteIndex].body = value.body;
       },
       error: (msg: any) => {
         throw new Error(msg);

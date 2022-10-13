@@ -36,6 +36,7 @@ export class NoteDetailsComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     if (this.new) {
+      const a = form.value.title;
       this.notesService.add(form.value);
     } else {
       this.notesService.update(this.noteIndex, form.value.title, form.value.body);
