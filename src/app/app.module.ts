@@ -14,6 +14,7 @@ import { UserRegisterComponent } from './user-register/user-register.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home/home.component';
+import { ResumeComponent } from './resume/resume.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,8 @@ import { HomeComponent } from './home/home/home.component';
     UserRegisterComponent,
     LoginComponent,
     HomeComponent,
+    ResumeComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,10 @@ import { HomeComponent } from './home/home/home.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+
+
+
 
   ],
   providers: [HttpClientModule],

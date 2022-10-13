@@ -21,9 +21,10 @@ export class NoteCardComponent implements OnInit {
   constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
-
+    // TODO document why this method 'ngOnInit' is empty
 
   }
+
   ngAfterViewInit(): void {
     // work out if there is a text overflow and if not, then hide the cardtruncator
     let style = window.getComputedStyle(this.bodyText.nativeElement, null);
