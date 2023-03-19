@@ -13,7 +13,7 @@ export class NotesService {
   private notesSubject = new BehaviorSubject<any>(0);
   public notesObservable: Observable<Note[]> = this.notesSubject.asObservable();
   constructor(private http: HttpClient) {
-    //this.getAllNotes();
+
   }
 
   getAll(): Note[] {
@@ -44,25 +44,20 @@ export class NotesService {
     this.http.post<any>(environment.apiUrl + 'api/note/saveNote', note).subscribe({
       next: (value: any) => {
         console.log(`note saved => ${value}`);
-        // this.notesSubject.value.push(value);
         this.notes.push(note);
       },
       error: (msg: any) => {
         throw new Error(msg);
       }
     });
-    // let newLength = this.notes.push(note);
-    // let index = newLength - 1;
-    // return index;
   }
 
   update(noteIndex: number, title: string, body: string): void {
-    const note = new Note(this.notes[noteIndex].id, title, body);
+    const id = this.notes[noteIndex].id;
+    const note = new Note(id, title, body);
     this.http.put(environment.apiUrl + 'api/note/updateNote', note).subscribe({
       next: (value: any) => {
         console.log(`note updated => ${value}`);
-        // this.notes[noteIndex].title = value.title;
-        // this.notes[noteIndex].body = value.body;
         this.notesSubject.value[noteIndex].title = value.title;
         this.notesSubject.value[noteIndex].body = value.body;
       },
@@ -74,10 +69,11 @@ export class NotesService {
 
   delete(noteIndex: number): void {
     const note = this.notes[noteIndex];
-    this.notes.splice(noteIndex, 1);
+
     this.http.delete(environment.apiUrl + `api/note/deleteNote/id/${note.id}`).subscribe({
       next: (value: any) => {
         console.log(`note deleted => ${value}`);
+        this.notes.splice(noteIndex, 1);
       },
       error: (msg: any) => {
         throw new Error(msg);
