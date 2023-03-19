@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home/home.component';
 import { ResumeComponent } from './resume/resume.component';
 import { AuthInterceptor } from './shared/service/authInterceptor';
 
+
 @NgModule({
   declarations: [
     AppComponent,
