@@ -1,6 +1,29 @@
 <div class="layout-box">
     <div class="top-bar">
         <h1>Note Mate</h1>
+
+        <div class="btn-group" dropdown>
+            <button id="button-basic" 
+                dropdownToggle type="button" 
+                class="btn btn-success dropdown-toggle"
+                aria-controls="dropdown-basic"> 
+                Dropdown 1 
+            </button>
+              
+            <ul id="dropdown-basic" 
+                *dropdownMenu class="dropdown-menu" 
+                role="menu" aria-labelledby="button-basic">
+                <li role="menuitem">
+                    <a class="dropdown-item">gfg</a>
+                </li>
+                <li role="menuitem">
+                    <a class="dropdown-item">geeks</a>
+                </li>
+                <li role="menuitem">
+                    <a class="dropdown-item">GeeksforGeeks</a>
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="page-content">
         <router-outlet></router-outlet>
