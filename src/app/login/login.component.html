@@ -20,8 +20,11 @@
                 minlength="6" class="input">
             <div class="input-group-append" (click)="toggleFieldTextType()">
                 <span class="input-group-text">
-                    <i class="fa" [ngClass]="{'fa-eye-slash': !fieldTextType, 'fa-eye': fieldTextType}">
+                    <i i-bs  name="eye-slash" *ngIf="!fieldTextType">
                     </i>
+                    <i i-bs  name="eye" *ngIf="fieldTextType">
+                    </i>
+                    
                 </span>
             </div>
             <div *ngIf=" submitted && f['password'].errors" class="invalid-feedback">
@@ -36,10 +39,10 @@
         </div>
 
         <div class="form-group">
-            <button [disabled]="loading" class="button is-primary" type="submit">
+            <button [disabled]="loading" class="button btn btn-primary" type="submit">
                 Login
             </button>
-            <button routerLink="../register" class="button is-link is-light">Register</button>
+            <button routerLink="../register" class="button btn btn-link">Register</button>
         </div>
 
     </form>

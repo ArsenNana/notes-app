@@ -16,7 +16,16 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home/home.component';
 import { ResumeComponent } from './resume/resume.component';
 import { AuthInterceptor } from './shared/service/authInterceptor';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { eye, eyeSlash, trash } from 'ngx-bootstrap-icons';
 
+
+const icons = {
+  eye,
+  eyeSlash,
+  trash
+};
 
 @NgModule({
   declarations: [
@@ -39,6 +48,8 @@ import { AuthInterceptor } from './shared/service/authInterceptor';
     HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
+    BsDropdownModule.forRoot(),
+    NgxBootstrapIconsModule.pick(icons)
 
 
 

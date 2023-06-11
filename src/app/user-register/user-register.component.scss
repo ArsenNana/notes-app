@@ -52,15 +52,10 @@ input {
     color: red;
 }
 
-.fa-eye-slash:hover,
-.fa-eye:hover {
-    cursor: pointer;
-}
-
 .input-group-append {
     border-radius: 5 5 0 0 px;
     background-color: rgba(0, 0, 0, .03);
-    margin-top: -45px;
+    margin-top: -30px;
     z-index: 1000000000;
     float: right;
     position: relative;
@@ -70,7 +65,8 @@ input {
 }
 
 .input-group-text {
-    padding: 9px;
+    padding: 6px;
+    line-height: 0.5;
 }
 
 .alert {
